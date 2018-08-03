@@ -21,7 +21,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public abstract class RegisterActivity  extends  BaseActivity implements RegisterContract.View, View.OnFocusChangeListener {
+public  class RegisterActivity  extends  BaseActivity implements RegisterContract.View,
+        View.OnFocusChangeListener {
+
 
     @BindView(R.id.user_name)
     EditText mUserName;
@@ -43,6 +45,10 @@ public abstract class RegisterActivity  extends  BaseActivity implements Registe
     @Inject
     RegisterPresenter mRegisterPresenter;
 
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_register;
+    }
     @Override
     protected void init() {
         super.init();
@@ -129,7 +135,20 @@ public abstract class RegisterActivity  extends  BaseActivity implements Registe
         }
         return true;
     }
-
+    @Override
+    public void onFocusChange(View view, boolean b) {
+        switch (view.getId()) {
+            case R.id.user_name:
+                mUserNameInputLayout.setErrorEnabled(false);
+                break;
+            case R.id.password:
+                mPasswordInputLayout.setErrorEnabled(false);
+                break;
+            case R.id.confirm_password:
+                mConfirmPasswordInputLayout.setErrorEnabled(false);
+                break;
+        }
+    }
 
     @Override
     public void onRegisterSuccess() {
@@ -158,24 +177,8 @@ public abstract class RegisterActivity  extends  BaseActivity implements Registe
         Toast.makeText(this, getString(R.string.user_name_taken), Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public int getLayoutResId() {
-        return R.layout.activity_register;
-    }
 
-    @Override
-    public void onFocusChange(View view, boolean b) {
-        switch (view.getId()) {
-            case R.id.user_name:
-                mUserNameInputLayout.setErrorEnabled(false);
-                break;
-            case R.id.password:
-                mPasswordInputLayout.setErrorEnabled(false);
-                break;
-            case R.id.confirm_password:
-                mConfirmPasswordInputLayout.setErrorEnabled(false);
-                break;
-        }
-    }
+
+
 
 }
