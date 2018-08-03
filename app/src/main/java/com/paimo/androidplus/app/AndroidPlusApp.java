@@ -1,5 +1,10 @@
 package com.paimo.androidplus.app;
 
+import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVUser;
+import com.paimo.androidplus.BuildConfig;
+import com.paimo.androidplus.data.model.User;
 import com.paimo.androidplus.di.DaggerAppComponent;
 
 import dagger.android.AndroidInjector;
@@ -13,7 +18,15 @@ public class AndroidPlusApp extends DaggerApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        initSubClasses();
+        AVOSCloud.initialize(this,APP_ID,APP_KEY);
+        AVOSCloud.setDebugLogEnabled(BuildConfig.DEBUG);
 
+    }
+
+    private void initSubClasses() {
+        AVObject.registerSubclass(User.class);
+        AVUser.alwaysUseSubUserClass(User.class);
     }
 
     @Override

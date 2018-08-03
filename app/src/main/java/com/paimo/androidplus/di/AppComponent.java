@@ -9,8 +9,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
 
 @Singleton
 @Component(modules = {
-        AndroidSupportInjectionModule.class
-//        ActivityBindingModule.class,
+        AndroidSupportInjectionModule.class,
+        ActivityBindingModule.class,
 
 })
 public interface AppComponent extends AndroidInjector<DaggerApplication> {
